@@ -3,7 +3,7 @@ import { UsuarioEntity } from "./usuario.entity";
 
 @Injectable()
 export class UsuariosArmazenados{
-    #usuarios = UsuarioEntity[] = [];
+    #usuarios : UsuarioEntity[] = [];
 
     AdicionarUsuario(usuario: UsuarioEntity){
         this.#usuarios.push(usuario);
