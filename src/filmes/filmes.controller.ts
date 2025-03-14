@@ -62,17 +62,17 @@ constructor(private clsFilmesArmazenados: FilmesArmazenados){
       );
     }
 
-    @Get('/compartilhar')
-    async compartilhaFilme() {
+    @Get('/compartilhar/:id')
+    async compartilhaFilme(@Param('id') id: string) {
         const filmesListados = this.clsFilmesArmazenados.Filmes;
-
-        if (!filmesListados || filmesListados.length === 0) {
-            return 'Nenhum filme encontrado!';
+    
+        const filmeEncontrado = filmesListados.find((filme) => filme.id === id);
+    
+        if (!filmeEncontrado) {
+            return 'Filme não encontrado!';
         }
-
-        const filme = filmesListados[0];
-
-        return `Estou assistindo o filme ${filme.nome}, que conta a seguinte história: ${filme.sinopse}. Foi lançado em ${filme.ano} e tem duração de ${filme.duracao} minutos.`;
+    
+        return `Estou assistindo o filme ${filmeEncontrado.nome}, que conta a seguinte história: ${filmeEncontrado.sinopse}. Foi lançado em ${filmeEncontrado.ano} e tem duração de ${filmeEncontrado.duracao} minutos.`;
     }
 
     @Put ('/:id')
