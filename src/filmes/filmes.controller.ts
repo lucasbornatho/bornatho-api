@@ -45,13 +45,12 @@ constructor(private clsFilmesArmazenados: FilmesArmazenados){
     @Get('/:id')
     async filmePorId(@Param('id') id: string) {
       const filmesListados = this.clsFilmesArmazenados.Filmes;
-      const filmesEncontrados = filmesListados.filter((filme) => filme.id === id);
+      const filmeEncontrado = filmesListados.find((filme) => filme.id === id);
     
-      if (filmesEncontrados.length === 0) {
+      if (!filmeEncontrado) {
         return { message: 'Filme não encontrado' };
       }
     
-      const filmeEncontrado = filmesEncontrados[0];
       return new ListaFilmesDTO(
         filmeEncontrado.id,
         filmeEncontrado.nome,
