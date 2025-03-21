@@ -24,14 +24,16 @@ export class UsuariosArmazenados{
 
         Object.entries(dadosAtualizacao).forEach(
             ([chave, valor]) => {
-                if (chave === 'id'){
+                if(chave === "id"){
+                    return
+                }else if(chave === 'email'){
+                    usuario.trocarSenha(valor);
                     return
                 }
                 if (valor === undefined){
                     return
                 }
-
-                usuario[chave] = valor;
+              usuario[chave] =   valor;
             }
         )
 
@@ -59,4 +61,26 @@ export class UsuariosArmazenados{
         );
         return(possivelUsuario !== undefined);
     }
+
+    private buscarPorEmail(email: string){
+        const possivelUsuario = this.#usuarios.find(
+            usuarioSalvo => usuarioSalvo.email === email
+        )
+ 
+        if(!possivelUsuario){
+            throw new Error("Usuário não Encontrado")
+        }
+ 
+        return possivelUsuario;
+ 
+    }
+ 
+    validarLogin(email: string, senha:string){
+        const usuario = this.buscarPorEmail(email);
+        return{
+            login: usuario.login(senha),
+            usuario: usuario,
+        }
+}
+
 }
