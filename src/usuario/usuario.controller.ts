@@ -6,7 +6,9 @@ import { v4 as uuid } from "uuid";
 import { ListaUsuariosDTO } from "./dto/consulta.dto";
 import { alteraUsuarioDTO } from "./dto/alteraUsuario.dto";
 import { LoginUsuarioDTO } from "./dto/loginUsuario.dto";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('usuario')
 @Controller('/usuarios')
 export class UsuarioController{
 constructor(private clsUsuariosArmazenados: UsuariosArmazenados){
