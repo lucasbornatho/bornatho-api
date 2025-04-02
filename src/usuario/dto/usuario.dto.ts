@@ -20,11 +20,26 @@ export class criaUsuarioDTO{
     idade: Number;
 
     @IsString()
+    @MinLength(8,{message: 'CEP precisa de pelo menos 8 digitos'})
     @ApiProperty({
-        example: 'Bauru',
-        description: 'Deve ser enviado o nome da cidade'
+        example: '17000000',
+        description: 'Deve ser informado o CEP do usuario'
     })
-    cidade: string;
+    cep: string;
+
+    @IsString()
+    @ApiProperty({
+        example: 'Apartamento 123',
+        description: 'Deve ser informado o complemento do endereço'
+    })
+    complemento: string;
+
+    // @IsString()
+    // @ApiProperty({
+    //     example: 'Bauru',
+    //     description: 'Deve ser enviado o nome da cidade'
+    // })
+    // cidade: string;
 
     @IsEmail(undefined, {message:'e-mail invalido'})
     @EmailUnico({message:'E-email ja cadastrado. Tente novamente'})
