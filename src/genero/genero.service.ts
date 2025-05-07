@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid';
 import { GENERO } from "./genero.entity";
 import { CriaGeneroDTO } from "./dto/criaGenero.dto";
 import { RetornoCadastroDTO, RetornoObjDTO } from "src/dto/retorno.dto";
+import { AlterarGeneroDTO } from "./dto/atualizaGenero.dto";
 
 @Injectable()
 export class GeneroService {
@@ -13,6 +14,7 @@ export class GeneroService {
     ) {}
 
     async listar(): Promise<GENERO[]> {
+        return this.generoRepository.find()
     }
 
     async inserir(dados: CriaGeneroDTO): Promise<RetornoCadastroDTO> {
@@ -22,14 +24,14 @@ export class GeneroService {
         genero.DESCRICAO = dados.DESCRICAO;
 
         return this.generoRepository.save(genero)
-            .then(() => {
-                return {
+            .then((result) => {
+                return <RetornoCadastroDTO> {
                     id: genero.ID,
                     message: 'Genero cadastrado!'
                 };
             })
             .catch((error) => {
-                return {
+                return <RetornoCadastroDTO> {
                     id: '',
                     message: 'Houve um erro ao cadastrar. ' + error.message
                 };
@@ -65,5 +67,33 @@ export class GeneroService {
                 message: 'Houve um erro ao excluir.' + error.message
             }
         })
+    }
+
+    async alterar(id:string, dados: AlterarGeneroDTO):Promise<RetornoCadastroDTO> {
+        const genero = await this.localizarID(id);
+
+        Object.entries(dados).forEach(
+            ([chave, valor]) => {
+                if(chave=== 'id'){
+                    return;  
+                }
+
+                genero[chave] = valor;
+            }
+        )
+        
+        return this.generoRepository.save(genero)
+            .then(() => {
+                return {
+                    id: genero.ID,
+                    message: 'Genero cadastrado!'
+                };
+            })
+            .catch((error) => {
+                return {
+                    id: '',
+                    message: 'Houve um erro ao cadastrar. ' + error.message
+                };
+            });
     }
 }
