@@ -2,11 +2,10 @@
 //tudo o que o modulo de usuário contem, é adinistrado pela classe de módulo
 
 import { Module } from '@nestjs/common';
-import { FilmeController } from './filme.controller';
-import { FilmesArmazenados } from './filme.dm';
+import { FilmesController } from './filmes.controller';
 
 @Module({  
-  controllers: [FilmeController],  
-  providers: [FilmesArmazenados],
+  controllers: [FilmesController],  
+  providers: [],
 })
 export class FilmeModule {}

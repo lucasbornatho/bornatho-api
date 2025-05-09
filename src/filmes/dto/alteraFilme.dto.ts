@@ -3,7 +3,7 @@
 import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString, MinLength } from "class-validator";
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
-export class alteraFilmeDTO{
+export class alteraFilmesDTO{
 
     //decorators de tipo e validação, são responsáveis por darem padrão e validar informações importantes nos DTOs
     //podem ser prédefinidos ou podem ser criados de forma customizada(exemplo email unico)

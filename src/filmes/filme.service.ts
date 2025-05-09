@@ -3,14 +3,17 @@ import { Repository } from 'typeorm';
 import {v4  as uuid} from 'uuid'
 import { RetornoCadastroDTO, RetornoObjDTO } from 'src/dto/retorno.dto';
 import { FILME } from './filme.entity';
-import { criaFilmeDTO } from './dto/filme.dto';
-import { alteraFilmeDTO } from './dto/alteraFilme.dto';
+import { criaFilmesDTO } from './dto/filme.dto';
+import { alteraFilmesDTO } from './dto/alteraFilme.dto';
 import { GENERO } from 'src/genero/genero.entity';
 import { GeneroService } from 'src/genero/genero.service';
 import { ListaFilmeDTO } from './dto/listaFilme.dto';
 
 @Injectable()
 export class FilmeService {
+  getFilmesArmazenados() {
+      throw new Error("Method not implemented.");
+  }
   constructor(
     @Inject('FILME_REPOSITORY')
     private filmeRepository: Repository<FILME>,
@@ -47,7 +50,7 @@ export class FilmeService {
     }
   }
 
-  async inserir(dados: criaFilmeDTO): Promise<RetornoCadastroDTO>{
+  async inserir(dados: criaFilmesDTO): Promise<RetornoCadastroDTO>{
     let filme = new FILME();
         filme.ID = uuid();
         filme.NOME = dados.NOME;
@@ -106,7 +109,7 @@ export class FilmeService {
     });  
   }
 
-  async alterar(id: string, dados: alteraFilmeDTO): Promise<RetornoCadastroDTO> {
+  async alterar(id: string, dados: alteraFilmesDTO): Promise<RetornoCadastroDTO> {
     const filme = await this.localizarID(id);
 
     Object.entries(dados).forEach(

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsInt, IsNotEmpty, IsString} from 'class-validator'
 
-export class criaFilmesDTO{
+export class criaFilmeDTO{
     @IsString()
     @IsNotEmpty({message: 'nome não pode ser vazio'})
     @ApiProperty({
